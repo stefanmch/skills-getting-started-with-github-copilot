@@ -116,6 +116,9 @@ async def signup_for_activity(activity_name: str, email: str):
     if not activity:
         raise HTTPException(status_code=404, detail="Activity not found")
 
+    # Validate activity has available spots
+    if len(activity["participants"]) >= activity["capacity"]:
+        raise HTTPException(status_code=400, detail="Activity is full")
     # Validate student is not already signed up
     if email in activity["participants"]:
         raise HTTPException(status_code=400, detail="Student is already signed up")
