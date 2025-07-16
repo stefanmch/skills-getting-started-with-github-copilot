@@ -17,7 +17,8 @@ app = FastAPI(title="Mergington High School API",
               description="API for viewing and signing up for extracurricular activities")
 
 # MongoDB connection
-client = AsyncIOMotorClient("mongodb://localhost:27017")
+mongodb_uri = os.getenv("MONGODB_URI", "mongodb://localhost:27017")
+client = AsyncIOMotorClient(mongodb_uri)
 db = client.mergington_high
 activities_collection = db.activities
 
